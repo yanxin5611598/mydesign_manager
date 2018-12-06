@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.mydesign.mapper.UserCheckResultMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.mydesign.bean.UserCheckResult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tem" property="tem" jdbcType="VARCHAR" />
+    <result column="hum" property="hum" jdbcType="VARCHAR" />
+    <result column="choh" property="choh" jdbcType="VARCHAR" />
+    <result column="pm25" property="pm25" jdbcType="VARCHAR" />
+    <result column="pm10" property="pm10" jdbcType="VARCHAR" />
+    <result column="airrank" property="airrank" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="gpsInfo" property="gpsinfo" jdbcType="VARCHAR" />
+    <result column="deviceInfo" property="deviceinfo" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="roomInfo" property="roominfo" jdbcType="VARCHAR" />
+    <result column="contentEvaluate" property="contentevaluate" jdbcType="VARCHAR" />
+    <result column="imageInfo" property="imageinfo" jdbcType="VARCHAR" />
+    <result column="imagePath" property="imagepath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, tem, hum, choh, pm25, pm10, airrank, username, gpsInfo, deviceInfo, time, roomInfo, 
+    contentEvaluate, imageInfo, imagePath
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yx.mydesign.bean.UserCheckResultExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_check_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_check_result
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_check_result
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yx.mydesign.bean.UserCheckResultExample" >
+    delete from user_check_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yx.mydesign.bean.UserCheckResult" >
+    insert into user_check_result (id, tem, hum, 
+      choh, pm25, pm10, airrank, 
+      username, gpsInfo, deviceInfo, 
+      time, roomInfo, contentEvaluate, 
+      imageInfo, imagePath)
+    values (#{id,jdbcType=INTEGER}, #{tem,jdbcType=VARCHAR}, #{hum,jdbcType=VARCHAR}, 
+      #{choh,jdbcType=VARCHAR}, #{pm25,jdbcType=VARCHAR}, #{pm10,jdbcType=VARCHAR}, #{airrank,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{gpsinfo,jdbcType=VARCHAR}, #{deviceinfo,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{roominfo,jdbcType=VARCHAR}, #{contentevaluate,jdbcType=VARCHAR}, 
+      #{imageinfo,jdbcType=VARCHAR}, #{imagepath,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yx.mydesign.bean.UserCheckResult" >
+    insert into user_check_result
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tem != null" >
+        tem,
+      </if>
+      <if test="hum != null" >
+        hum,
+      </if>
+      <if test="choh != null" >
+        choh,
+      </if>
+      <if test="pm25 != null" >
+        pm25,
+      </if>
+      <if test="pm10 != null" >
+        pm10,
+      </if>
+      <if test="airrank != null" >
+        airrank,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="gpsinfo != null" >
+        gpsInfo,
+      </if>
+      <if test="deviceinfo != null" >
+        deviceInfo,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="roominfo != null" >
+        roomInfo,
+      </if>
+      <if test="contentevaluate != null" >
+        contentEvaluate,
+      </if>
+      <if test="imageinfo != null" >
+        imageInfo,
+      </if>
+      <if test="imagepath != null" >
+        imagePath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tem != null" >
+        #{tem,jdbcType=VARCHAR},
+      </if>
+      <if test="hum != null" >
+        #{hum,jdbcType=VARCHAR},
+      </if>
+      <if test="choh != null" >
+        #{choh,jdbcType=VARCHAR},
+      </if>
+      <if test="pm25 != null" >
+        #{pm25,jdbcType=VARCHAR},
+      </if>
+      <if test="pm10 != null" >
+        #{pm10,jdbcType=VARCHAR},
+      </if>
+      <if test="airrank != null" >
+        #{airrank,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsinfo != null" >
+        #{gpsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceinfo != null" >
+        #{deviceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfo != null" >
+        #{roominfo,jdbcType=VARCHAR},
+      </if>
+      <if test="contentevaluate != null" >
+        #{contentevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="imageinfo != null" >
+        #{imageinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        #{imagepath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yx.mydesign.bean.UserCheckResultExample" resultType="java.lang.Integer" >
+    select count(*) from user_check_result
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_check_result
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.tem != null" >
+        tem = #{record.tem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hum != null" >
+        hum = #{record.hum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.choh != null" >
+        choh = #{record.choh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pm25 != null" >
+        pm25 = #{record.pm25,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pm10 != null" >
+        pm10 = #{record.pm10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.airrank != null" >
+        airrank = #{record.airrank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gpsinfo != null" >
+        gpsInfo = #{record.gpsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceinfo != null" >
+        deviceInfo = #{record.deviceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roominfo != null" >
+        roomInfo = #{record.roominfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentevaluate != null" >
+        contentEvaluate = #{record.contentevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageinfo != null" >
+        imageInfo = #{record.imageinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagepath != null" >
+        imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_check_result
+    set id = #{record.id,jdbcType=INTEGER},
+      tem = #{record.tem,jdbcType=VARCHAR},
+      hum = #{record.hum,jdbcType=VARCHAR},
+      choh = #{record.choh,jdbcType=VARCHAR},
+      pm25 = #{record.pm25,jdbcType=VARCHAR},
+      pm10 = #{record.pm10,jdbcType=VARCHAR},
+      airrank = #{record.airrank,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      gpsInfo = #{record.gpsinfo,jdbcType=VARCHAR},
+      deviceInfo = #{record.deviceinfo,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      roomInfo = #{record.roominfo,jdbcType=VARCHAR},
+      contentEvaluate = #{record.contentevaluate,jdbcType=VARCHAR},
+      imageInfo = #{record.imageinfo,jdbcType=VARCHAR},
+      imagePath = #{record.imagepath,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yx.mydesign.bean.UserCheckResult" >
+    update user_check_result
+    <set >
+      <if test="tem != null" >
+        tem = #{tem,jdbcType=VARCHAR},
+      </if>
+      <if test="hum != null" >
+        hum = #{hum,jdbcType=VARCHAR},
+      </if>
+      <if test="choh != null" >
+        choh = #{choh,jdbcType=VARCHAR},
+      </if>
+      <if test="pm25 != null" >
+        pm25 = #{pm25,jdbcType=VARCHAR},
+      </if>
+      <if test="pm10 != null" >
+        pm10 = #{pm10,jdbcType=VARCHAR},
+      </if>
+      <if test="airrank != null" >
+        airrank = #{airrank,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsinfo != null" >
+        gpsInfo = #{gpsinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceinfo != null" >
+        deviceInfo = #{deviceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="roominfo != null" >
+        roomInfo = #{roominfo,jdbcType=VARCHAR},
+      </if>
+      <if test="contentevaluate != null" >
+        contentEvaluate = #{contentevaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="imageinfo != null" >
+        imageInfo = #{imageinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        imagePath = #{imagepath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yx.mydesign.bean.UserCheckResult" >
+    update user_check_result
+    set tem = #{tem,jdbcType=VARCHAR},
+      hum = #{hum,jdbcType=VARCHAR},
+      choh = #{choh,jdbcType=VARCHAR},
+      pm25 = #{pm25,jdbcType=VARCHAR},
+      pm10 = #{pm10,jdbcType=VARCHAR},
+      airrank = #{airrank,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      gpsInfo = #{gpsinfo,jdbcType=VARCHAR},
+      deviceInfo = #{deviceinfo,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      roomInfo = #{roominfo,jdbcType=VARCHAR},
+      contentEvaluate = #{contentevaluate,jdbcType=VARCHAR},
+      imageInfo = #{imageinfo,jdbcType=VARCHAR},
+      imagePath = #{imagepath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAllData" resultMap="BaseResultMap">
+  	select * from user_check_result
+  </select>
+  <select id="selectByItemsLike" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from user_check_result
+    <where>
+    	<if test="_parameter != null and _parameter != ''">
+				deviceInfo like '%' #{0} '%'
+		</if>
+		and
+		<if test="_parameter != null and _parameter != ''">
+				username like '%' #{1} '%'
+		</if>
+		and
+		<if test="_parameter != null and _parameter != ''">
+				gpsInfo like '%' #{2} '%'
+		</if>
+    </where>
+    order by id asc
+    
+  </select>
+  <select id="getDataByAddress" resultMap="BaseResultMap">
+  	select * from(
+		select * from user_check_result a order by a.time desc) 
+	as b
+ 	group by 
+ 		substring_index(b.gpsInfo,'\t',1);
+  </select>
+  <select id="getRankAndTimeList" resultType="java.lang.String" parameterType="java.lang.String">
+    select
+     concat(airrank,'\t',time)
+    from user_check_result
+    <where>
+    	<if test="_parameter != null and _parameter != ''">
+				gpsInfo like '%' #{0} '%'
+		</if>
+    </where>
+    order by id asc
+    
+  </select>
+</mapper>

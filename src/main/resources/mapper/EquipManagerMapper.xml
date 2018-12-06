@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.mydesign.mapper.EquipManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.mydesign.bean.EquipManager" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="equipmanagername" property="equipmanagername" jdbcType="VARCHAR" />
+    <result column="equipmanagerpassword" property="equipmanagerpassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, equipmanagername, equipmanagerpassword
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yx.mydesign.bean.EquipManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from equipmanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from equipmanager
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from equipmanager
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yx.mydesign.bean.EquipManagerExample" >
+    delete from equipmanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yx.mydesign.bean.EquipManager" >
+    insert into equipmanager (id, equipmanagername, equipmanagerpassword
+      )
+    values (#{id,jdbcType=INTEGER}, #{equipmanagername,jdbcType=VARCHAR}, #{equipmanagerpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yx.mydesign.bean.EquipManager" >
+    insert into equipmanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="equipmanagername != null" >
+        equipmanagername,
+      </if>
+      <if test="equipmanagerpassword != null" >
+        equipmanagerpassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="equipmanagername != null" >
+        #{equipmanagername,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmanagerpassword != null" >
+        #{equipmanagerpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yx.mydesign.bean.EquipManagerExample" resultType="java.lang.Integer" >
+    select count(*) from equipmanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update equipmanager
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.equipmanagername != null" >
+        equipmanagername = #{record.equipmanagername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmanagerpassword != null" >
+        equipmanagerpassword = #{record.equipmanagerpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update equipmanager
+    set id = #{record.id,jdbcType=INTEGER},
+      equipmanagername = #{record.equipmanagername,jdbcType=VARCHAR},
+      equipmanagerpassword = #{record.equipmanagerpassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yx.mydesign.bean.EquipManager" >
+    update equipmanager
+    <set >
+      <if test="equipmanagername != null" >
+        equipmanagername = #{equipmanagername,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmanagerpassword != null" >
+        equipmanagerpassword = #{equipmanagerpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yx.mydesign.bean.EquipManager" >
+    update equipmanager
+    set equipmanagername = #{equipmanagername,jdbcType=VARCHAR},
+      equipmanagerpassword = #{equipmanagerpassword,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

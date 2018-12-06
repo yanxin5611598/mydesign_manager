@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+  <!-- 首先会去读取context-param -->
+  <!-- <context-param>元素含有一对参数名和参数值，用作应用的Servlet上下文初始化参数，参数名在整个Web应用中必须是惟一的，
+  	        在web应用的整个生命周期中上下文初始化参数都存在，任意的Servlet和jsp都可以随时随地访问它。
+  	   <param-name>子元素包含有参数名，而<param-value>子元素包含的是参数值。
+  	        作为选择，可用<description>子元素来描述参数
+  	        如果在web.xml中不写<context-param>配置信息，默认的路径是/WEB-INF/applicationContext.xml，
+  	        在WEB-INF目录下创建的xml文件的名称必须是applicationContext.xml。
+  	        如果是要自定义文件名可以在web.xml里加入contextConfigLocation这个context参数：在<param-value>里指定相应的xml文件名，
+  	        如果有多个xml文件，可以写在一起并以“,”号分隔 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:applicationContext-*.xml</param-value>
+  </context-param>
+  <!-- 监听器Listener就是在application，session，request三个对象创建，销毁，或者往其中添加修改删除属性时自动执行代码的功能组件。
+  	   Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。
+  	   ContextLoaderListener用于对Servlet整个上下文进行监听（创建，销毁）
+  	       该类可以作为Listener使用，在启动Tomcat容器的时候，该类的作用就是自动装载ApplicationContext的配置信息，
+  	       如果没有设置contextConfigLocation的初始参数则会使用默认参数WEB-INF路径下的application.xml文件。 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <async-supported>true</async-supported>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceRequestEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceResponseEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>MultipartFilter</filter-name>
+    <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    <init-param>
+      <param-name>multipartResolverBeanName</param-name>
+      <param-value>multipartResolver</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>MultipartFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc.xml</param-value>
+    </init-param>
+    <!-- 表示容器启动的时候初始化该servlet -->
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcherServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

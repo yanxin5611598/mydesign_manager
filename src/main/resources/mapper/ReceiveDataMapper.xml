@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.mydesign.mapper.ReceiveDataMapper" >
+  <resultMap id="BaseResultMap" type="com.yx.mydesign.bean.ReceiveData" >
+    <result column="receiveID" property="receiveid" jdbcType="INTEGER" />
+    <result column="deviceID" property="deviceid" jdbcType="VARCHAR" />
+    <result column="tempValue" property="tempvalue" jdbcType="VARCHAR" />
+    <result column="humValue" property="humvalue" jdbcType="VARCHAR" />
+    <result column="PM10Value" property="pm10value" jdbcType="VARCHAR" />
+    <result column="PM25Value" property="pm25value" jdbcType="VARCHAR" />
+    <result column="HCHOValue" property="hchovalue" jdbcType="VARCHAR" />
+    <result column="receiveTime" property="receivetime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    receiveID, deviceID, tempValue, humValue, PM10Value, PM25Value, HCHOValue, receiveTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yx.mydesign.bean.ReceiveDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from receivedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yx.mydesign.bean.ReceiveDataExample" >
+    delete from receivedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yx.mydesign.bean.ReceiveData" >
+    insert into receivedata (receiveID, deviceID, tempValue, 
+      humValue, PM10Value, PM25Value, 
+      HCHOValue, receiveTime)
+    values (#{receiveid,jdbcType=INTEGER}, #{deviceid,jdbcType=VARCHAR}, #{tempvalue,jdbcType=VARCHAR}, 
+      #{humvalue,jdbcType=VARCHAR}, #{pm10value,jdbcType=VARCHAR}, #{pm25value,jdbcType=VARCHAR}, 
+      #{hchovalue,jdbcType=VARCHAR}, #{receivetime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yx.mydesign.bean.ReceiveData" >
+    insert into receivedata
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiveid != null" >
+        receiveID,
+      </if>
+      <if test="deviceid != null" >
+        deviceID,
+      </if>
+      <if test="tempvalue != null" >
+        tempValue,
+      </if>
+      <if test="humvalue != null" >
+        humValue,
+      </if>
+      <if test="pm10value != null" >
+        PM10Value,
+      </if>
+      <if test="pm25value != null" >
+        PM25Value,
+      </if>
+      <if test="hchovalue != null" >
+        HCHOValue,
+      </if>
+      <if test="receivetime != null" >
+        receiveTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiveid != null" >
+        #{receiveid,jdbcType=INTEGER},
+      </if>
+      <if test="deviceid != null" >
+        #{deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="tempvalue != null" >
+        #{tempvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="humvalue != null" >
+        #{humvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="pm10value != null" >
+        #{pm10value,jdbcType=VARCHAR},
+      </if>
+      <if test="pm25value != null" >
+        #{pm25value,jdbcType=VARCHAR},
+      </if>
+      <if test="hchovalue != null" >
+        #{hchovalue,jdbcType=VARCHAR},
+      </if>
+      <if test="receivetime != null" >
+        #{receivetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yx.mydesign.bean.ReceiveDataExample" resultType="java.lang.Integer" >
+    select count(*) from receivedata
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update receivedata
+    <set >
+      <if test="record.receiveid != null" >
+        receiveID = #{record.receiveid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceid != null" >
+        deviceID = #{record.deviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tempvalue != null" >
+        tempValue = #{record.tempvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.humvalue != null" >
+        humValue = #{record.humvalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pm10value != null" >
+        PM10Value = #{record.pm10value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pm25value != null" >
+        PM25Value = #{record.pm25value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hchovalue != null" >
+        HCHOValue = #{record.hchovalue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivetime != null" >
+        receiveTime = #{record.receivetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update receivedata
+    set receiveID = #{record.receiveid,jdbcType=INTEGER},
+      deviceID = #{record.deviceid,jdbcType=VARCHAR},
+      tempValue = #{record.tempvalue,jdbcType=VARCHAR},
+      humValue = #{record.humvalue,jdbcType=VARCHAR},
+      PM10Value = #{record.pm10value,jdbcType=VARCHAR},
+      PM25Value = #{record.pm25value,jdbcType=VARCHAR},
+      HCHOValue = #{record.hchovalue,jdbcType=VARCHAR},
+      receiveTime = #{record.receivetime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
